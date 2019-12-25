@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
+import os
+
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 df_train = pd.read_csv('data-sets/sensor_data_cancer_train.csv')
 df_test = pd.read_csv('data-sets/sensor_data_cancer_test.csv')
@@ -56,5 +59,6 @@ axs[1].set_xlabel('Epoch')
 axs[1].set_ylabel('Accuracy')
 axs[1].grid(True)
 plt.show()
+
 
 
