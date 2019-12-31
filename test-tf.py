@@ -48,6 +48,7 @@ print(np.argmax(predictions[0]))
 
 epoch_count = range(1, len(history.history['loss']) + 1)
 
+# save performance data
 values = {'History': history.history['loss'], 'Accuracy': history.history['accuracy'], 'Epoch': epoch_count}
 df_w = pd.DataFrame(values, columns=['History', 'Accuracy', 'Epoch'])
 df_w.to_csv("data-sets/results.csv", index=None, header=True)
