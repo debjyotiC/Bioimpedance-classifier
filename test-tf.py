@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
 
+for_loss = []
+for_accuracy = []
+
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 df_train = pd.read_csv('data-sets/sensor_data_cancer_train.csv')
@@ -45,6 +48,12 @@ history = model.fit(data_cell, data_label, epochs=100)
 predictions = model.predict(data_test)
 
 print(np.argmax(predictions[0]))
+
+epoch_count = range(1, len(history.history['loss']) + 1)
+
+values = {'History': history.history['loss'], 'Accuracy': history.history['accuracy'], 'Epoch':epoch_count}
+df_w = pd.DataFrame(values, columns=['History', 'Accuracy', 'Epoch'])
+df_w.to_csv("data-sets/results.csv", index=None, header=True)
 
 fig, axs = plt.subplots(2, 1)
 # plot loss
