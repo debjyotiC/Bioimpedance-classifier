@@ -26,25 +26,24 @@ data_pha = df_train['PHA(-)']
 data_got = df_test['datagot']
 
 
-data_cell = np.array([data_thp_100, data_thp_80, data_thp_60, data_thp_50, data_thp_40, data_thp_30, data_thp_20,
+data_train = np.array([data_thp_100, data_thp_80, data_thp_60, data_thp_50, data_thp_40, data_thp_30, data_thp_20,
                       data_thp_10, data_pha])
 data_label = np.array([1, 1, 1, 1, 1, 1, 1, 1, 0])
-data_test = np.array([data_got])
-
+data_test = np.array([data_thp_100])
 
 model = tf.keras.models.Sequential([
-    tf.keras.layers.Dense(100, input_shape=(100, ), activation='sigmoid'),
-    tf.keras.layers.Dense(80, activation='sigmoid'),
-    tf.keras.layers.Dense(50, activation='sigmoid'),
-    tf.keras.layers.Dense(1, activation='sigmoid')
+    tf.keras.layers.Dense(100, input_shape=(100, ), activation=tf.nn.relu),
+    tf.keras.layers.Dense(80, activation=tf.nn.relu),
+    tf.keras.layers.Dense(50, activation=tf.nn.sigmoid),
+    tf.keras.layers.Dense(1, activation=tf.nn.sigmoid)
 ])
 
-model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
-history = model.fit(data_cell, data_label, epochs=100)
+model.compile(loss='binary_crossentropy', optimizer=tf.keras.optimizers.Adam(0.1), metrics=['accuracy'])
+history = model.fit(data_train, data_label, epochs=100, verbose=True)
 
 predictions = model.predict(data_test)
 
-print(np.argmax(predictions[0]))
+print(predictions)
 
 epoch_count = range(1, len(history.history['loss']) + 1)
 
