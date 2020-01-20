@@ -34,7 +34,7 @@ with tf.device("/job:worker/task:0"):
     correct_prediction = tf.equal(tf.argmax(output_data, 1), tf.argmax(output_nn, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
-init_op = tf.global_variables_initializer()
+    init_op = tf.global_variables_initializer()
 
 with tf.Session('grpc://192.168.0.104:2222', config=tf.ConfigProto(log_device_placement=True)) as sess:
     sess.run(init_op)
