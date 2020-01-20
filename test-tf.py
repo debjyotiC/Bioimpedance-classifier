@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
-
+import tensorboard
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 df_train = pd.read_csv('data-sets/sensor_data_cancer_train.csv')
