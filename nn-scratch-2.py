@@ -6,18 +6,33 @@ celsius_q = np.array([[-40.], [-10.], [0.], [8.], [15.], [22.], [38.]], dtype=fl
 fahrenheit_a = np.array([[-40.], [14.], [32.], [46.], [59.], [72.], [100.]], dtype=float)
 
 # parameters
-learning_rate = 0.6
-epochs = 100
+learning_rate = 0.3
+epochs = 300
 batch_size = 2
 
 # data place holders
 input_data = tf.placeholder(tf.float32, [None, 1], name='b')
 output_data = tf.placeholder(tf.float32, [None, 1], name='b')
 
-# l0 layer
-w0 = tf.Variable(tf.random_normal([1, 1], stddev=0.03), name='w0')
-b0 = tf.Variable(tf.random_normal([1]), name='b0')
-output_nn = tf.add(tf.matmul(input_data, w0), b0)
+# l1 layer
+n_features = 1
+n_neurons_in_h1 = 1
+w1 = tf.Variable(tf.random_normal([n_features, n_neurons_in_h1], stddev=0.03), name='w1')
+b1 = tf.Variable(tf.random_normal([n_neurons_in_h1]), name='b1')
+output_nn_1 = tf.add(tf.matmul(input_data, w1), b1)
+
+# l2 layer
+n_neurons_in_h2 = 1
+w2 = tf.Variable(tf.random_normal([n_neurons_in_h1, n_neurons_in_h2], stddev=0.03), name='w2')
+b2 = tf.Variable(tf.random_normal([n_neurons_in_h1]), name='b2')
+output_nn_2 = tf.add(tf.matmul(output_nn_1, w2), b2)
+
+# l3 layer
+n_neurons_in_h2 = 1
+n_classes = 1
+w3 = tf.Variable(tf.random_normal([n_neurons_in_h2, n_classes], stddev=0.03), name='w3')
+b3 = tf.Variable(tf.random_normal([n_neurons_in_h1]), name='b3')
+output_nn = tf.add(tf.matmul(output_nn_2, w3), b3, name='output_layer')
 
 # error and optimization
 error = tf.reduce_mean((output_data - output_nn) ** 2)
@@ -39,4 +54,4 @@ with tf.Session() as sess:
         avg_cost += c / total_batch
         print("Epoch:", (epoch + 1), "cost =", "{:.3f}".format(avg_cost))
     print(sess.run(output_nn, feed_dict={input_data: [[100.00]]}))
-    print(sess.run([w0, b0], feed_dict={input_data: [[100.00]]}))
+
