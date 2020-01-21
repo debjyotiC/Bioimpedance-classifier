@@ -6,8 +6,8 @@ celsius_q = np.array([[-40.], [-10.], [0.], [8.], [15.], [22.], [38.]], dtype=fl
 fahrenheit_a = np.array([[-40.], [14.], [32.], [46.], [59.], [72.], [100.]], dtype=float)
 
 # parameters
-learning_rate = 0.3
-epochs = 300
+learning_rate = 0.1
+epochs = 400
 batch_size = 2
 
 # data place holders
