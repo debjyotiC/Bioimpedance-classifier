@@ -11,8 +11,8 @@ epochs = 400
 batch_size = 2
 
 # data place holders
-input_data = tf.placeholder(tf.float32, [None, 1], name='b')
-output_data = tf.placeholder(tf.float32, [None, 1], name='b')
+input_data = tf.placeholder(tf.float32, [None, 1], name='input')
+output_data = tf.placeholder(tf.float32, [None, 1], name='output')
 
 # l1 layer
 n_features = 1
@@ -55,5 +55,5 @@ with tf.Session() as sess:
         avg_cost += c / total_batch
         print("Epoch:", (epoch + 1), "cost =", "{:.3f}".format(avg_cost))
     print(sess.run(output_nn, feed_dict={input_data: [[100.00]]}))
-    save_path = saver.save(sess, "model_save/model.ckpt")
+    save_path = saver.save(sess, "model_save/model")
     print("Model saved in path: %s" % save_path)
