@@ -43,6 +43,7 @@ correct_prediction = tf.equal(tf.argmax(output_data, 1), tf.argmax(output_nn, 1)
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 init_op = tf.global_variables_initializer()
+saver = tf.train.Saver()
 
 with tf.Session() as sess:
     sess.run(init_op)
@@ -54,4 +55,5 @@ with tf.Session() as sess:
         avg_cost += c / total_batch
         print("Epoch:", (epoch + 1), "cost =", "{:.3f}".format(avg_cost))
     print(sess.run(output_nn, feed_dict={input_data: [[100.00]]}))
-
+    save_path = saver.save(sess, "model_save/model.ckpt")
+    print("Model saved in path: %s" % save_path)
