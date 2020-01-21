@@ -39,7 +39,7 @@ model = tf.keras.models.Sequential([
 ])
 
 model.compile(loss='binary_crossentropy', optimizer=tf.keras.optimizers.Adam(0.1), metrics=['accuracy'])
-history = model.fit(data_train, data_label, epochs=100, verbose=True)
+history = model.fit(data_train, data_label, epochs=500, verbose=True)
 
 predictions = model.predict(data_test)
 
