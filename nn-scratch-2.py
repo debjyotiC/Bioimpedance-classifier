@@ -57,3 +57,4 @@ with tf.Session() as sess:
     print(sess.run(output_nn, feed_dict={input_data: [[100.00]]}))
     save_path = saver.save(sess, "model_save/model")
     print("Model saved in path: %s" % save_path)
+    tf.train.write_graph(sess.graph_def, 'model_save', 'save-tensor.pb')

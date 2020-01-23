@@ -18,5 +18,5 @@ input_data = graph.get_tensor_by_name("input:0")
 # Now, access the op that you want to run.
 op_to_restore = graph.get_tensor_by_name("output_layer:0")
 
-feed_dict = {input_data: [[40.]]}
+feed_dict = {input_data: [[100.]]}
 print(sess.run(op_to_restore, feed_dict))

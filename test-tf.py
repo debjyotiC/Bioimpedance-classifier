@@ -21,14 +21,14 @@ data_thp_10 = df_train['10%_THP']
 
 # non-cancerous cell
 data_pha = df_train['PHA(-)']
-
+data_air = df_train['Air']
 # test data
 data_got = df_test['datagot']
 
 
 data_train = np.array([data_thp_100, data_thp_80, data_thp_60, data_thp_50, data_thp_40, data_thp_30, data_thp_20,
-                      data_thp_10, data_pha])
-data_label = np.array([1, 1, 1, 1, 1, 1, 1, 1, 0])
+                      data_thp_10, data_pha, data_air])
+data_label = np.array([1, 1, 1, 1, 1, 1, 1, 1, 0, 0])
 data_test = np.array([data_thp_100])
 
 model = tf.keras.models.Sequential([
@@ -65,6 +65,3 @@ axs[1].set_xlabel('Epoch')
 axs[1].set_ylabel('Accuracy')
 axs[1].grid(True)
 plt.show()
-
-
-
