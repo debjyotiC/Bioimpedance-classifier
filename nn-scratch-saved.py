@@ -19,4 +19,5 @@ input_data = graph.get_tensor_by_name("input:0")
 op_to_restore = graph.get_tensor_by_name("output_layer:0")
 
 feed_dict = {input_data: [[100.]]}
-print(sess.run(op_to_restore, feed_dict))
+out_put = sess.run(op_to_restore, feed_dict)[0][0]
+print("{}".format(out_put))
