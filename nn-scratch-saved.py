@@ -1,5 +1,6 @@
 import tensorflow.compat.v1 as tf
 import os
+
 tf.disable_v2_behavior()
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 sess = tf.Session()
