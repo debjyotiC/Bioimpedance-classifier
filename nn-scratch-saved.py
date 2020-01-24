@@ -11,7 +11,6 @@ saver.restore(sess, tf.train.latest_checkpoint('model_save'))
 
 # Now, let's access and create placeholders variables and
 # create feed-dict to feed new data
-
 graph = tf.get_default_graph()
 input_data = graph.get_tensor_by_name("input:0")
 
@@ -21,4 +20,4 @@ op_to_restore = graph.get_tensor_by_name("output_layer:0")
 
 feed_dict = {input_data: [[100.]]}
 out_put = sess.run(op_to_restore, feed_dict)[0][0]
-print("{}".format(out_put))
+print(out_put.item())
