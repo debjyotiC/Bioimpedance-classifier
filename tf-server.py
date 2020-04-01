@@ -31,8 +31,8 @@ class AddData(Resource):
         parser.add_argument('field', type=float)
         data = parser.parse_args()
         if str(data['api_key']).upper() == api_key_write:
-            data = data['field']
-            feed_dict = {input_data: [[data]]}
+            data0 = data['field']
+            feed_dict = {input_data: [[data0]]}
             out_put = sess.run(op_to_restore, feed_dict)[0][0]
             forresponse = out_put.item()
             return {"data": forresponse}

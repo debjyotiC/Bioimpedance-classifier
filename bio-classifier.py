@@ -52,16 +52,16 @@ values = {'Epoch': epoch_count, 'Loss': history.history['loss'], 'Accuracy': his
 df_w = pd.DataFrame(values, columns=['Epoch', 'Loss', 'Accuracy'])
 df_w.to_csv("data-sets/results.csv", index=None, header=True)
 
-#fig, axs = plt.subplots(2, 1)
+fig, axs = plt.subplots(2, 1)
 # plot loss
-#axs[0].plot(history.history['loss'], color='Green')
-#axs[0].set_xlabel('Epoch')
-#axs[0].set_ylabel('Loss')
-#axs[0].grid(True)
+axs[0].plot(history.history['loss'], color='Green')
+axs[0].set_xlabel('Epoch')
+axs[0].set_ylabel('Loss')
+axs[0].grid(True)
 
 # plot accuracy
-#axs[1].plot(history.history['accuracy'], color='Red')
-#axs[1].set_xlabel('Epoch')
-#axs[1].set_ylabel('Accuracy')
-#axs[1].grid(True)
-#plt.show()
+axs[1].plot(history.history['accuracy'], color='Red')
+axs[1].set_xlabel('Epoch')
+axs[1].set_ylabel('Accuracy')
+axs[1].grid(True)
+plt.show()
