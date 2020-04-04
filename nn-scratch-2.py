@@ -4,10 +4,10 @@ tf.disable_v2_behavior()
 
 celsius_q = np.array([[-40.], [-10.], [0.], [8.], [15.], [22.], [38.]], dtype=float)
 fahrenheit_a = np.array([[-40.], [14.], [32.], [46.], [59.], [72.], [100.]], dtype=float)
-
+print(celsius_q.shape)
 # parameters
 learning_rate = 0.1
-epochs = 400
+epochs = 60
 batch_size = 2
 
 # data place holders
@@ -52,8 +52,9 @@ with tf.Session() as sess:
         avg_cost = 0
         for i in range(total_batch):
             _, c = sess.run([optimiser, error], feed_dict={input_data: [celsius_q[i]], output_data: [fahrenheit_a[i]]})
+            acc = sess.run(accuracy, feed_dict={input_data: [celsius_q[i]], output_data: [fahrenheit_a[i]]})
         avg_cost += c / total_batch
-        print("Epoch:", (epoch + 1), "cost =", "{:.3f}".format(avg_cost))
+        print("Epoch:", (epoch + 1), "cost =", "{:.3f}".format(avg_cost), "accuracy = {:2f}".format(acc))
     print(sess.run(output_nn, feed_dict={input_data: [[100.00]]}))
     save_path = saver.save(sess, "model_save/model")
     print("Model saved in path: %s" % save_path)
