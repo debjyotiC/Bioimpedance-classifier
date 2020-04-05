@@ -16,7 +16,7 @@ data_train = np.array([data_air, data_water], dtype=float)
 data_label = np.array([1.0, 2.0], dtype=float)
 
 # parameters
-learning_rate = 1e-1
+learning_rate = 1e-2
 epochs = 600
 
 
