@@ -17,7 +17,7 @@ data_label = np.array([1.0, 2.0], dtype=float)
 
 # parameters
 learning_rate = 1e-2
-epochs = 600
+epochs = 400
 
 
 # data place holders
@@ -42,7 +42,7 @@ output_nn_3 = tf.nn.softmax(tf.add(tf.matmul(output_nn_2, w3), b3))
 # l4 layer
 w4 = tf.Variable(tf.random_normal([50, 2], stddev=0.03), name='w4')
 b4 = tf.Variable(tf.random_normal([2]), name='b4')
-output_nn = tf.nn.softmax(tf.add(tf.matmul(output_nn_3, w4), b4))
+output_nn = tf.nn.softmax(tf.add(tf.matmul(output_nn_3, w4), b4), name='output_layer')
 
 # error calculation
 y_clipped = tf.clip_by_value(output_nn, 1e-10, 0.9999999)
@@ -56,6 +56,7 @@ correct_prediction = tf.equal(output_max, predicted_max)
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 init_op = tf.global_variables_initializer()
+saver = tf.train.Saver()
 
 with tf.Session() as sess:
     sess.run(init_op)
@@ -63,7 +64,11 @@ with tf.Session() as sess:
     for epoch in range(epochs):
         avg_cost = 0
         for i in range(total_batch):
-            _, c = sess.run([optimiser, error], feed_dict={input_data: [data_train[i]], output_data: [data_label[i]]})
+            _, c, output = sess.run([optimiser, error, output_nn], feed_dict={input_data: [data_train[i]],
+                                                                              output_data: [data_label[i]]})
         avg_cost += c / total_batch
-        print("Epoch:", (epoch + 1), "cost =", "{:.3f}".format(avg_cost))
-    print(sess.run([accuracy, tf.argmax(output_nn[0])], feed_dict={input_data: [np.array(data_water)]}))
+        print("Epoch:", (epoch + 1), "cost =", "{:.3f}".format(avg_cost), "Output:", output[0])
+    print(sess.run(output_nn, feed_dict={input_data: [np.array(data_water)]}))
+    save_path = saver.save(sess, "model_save_2/model")
+    print(f"Model saved in path:{save_path}")
+    tf.train.write_graph(sess.graph_def, 'model_save_2', 'save-tensor-2.pb')

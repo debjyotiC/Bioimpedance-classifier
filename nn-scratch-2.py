@@ -4,7 +4,7 @@ tf.disable_v2_behavior()
 
 celsius_q = np.array([[-40.], [-10.], [0.], [8.], [15.], [22.], [38.]], dtype=float)
 fahrenheit_a = np.array([[-40.], [14.], [32.], [46.], [59.], [72.], [100.]], dtype=float)
-print(celsius_q.shape)
+
 # parameters
 learning_rate = 0.1
 epochs = 60
