@@ -15,7 +15,7 @@ node {
           size: -1
         }
         dim {
-          size: 40
+          size: 100
         }
       }
     }
@@ -60,7 +60,7 @@ node {
             size: 2
           }
         }
-        tensor_content: "(\000\000\000(\000\000\000"
+        tensor_content: "d\000\000\000d\000\000\000"
       }
     }
   }
@@ -180,10 +180,10 @@ node {
     value {
       shape {
         dim {
-          size: 40
+          size: 100
         }
         dim {
-          size: 40
+          size: 100
         }
       }
     }
@@ -265,7 +265,7 @@ node {
             size: 1
           }
         }
-        int_val: 40
+        int_val: 100
       }
     }
   }
@@ -385,7 +385,7 @@ node {
     value {
       shape {
         dim {
-          size: 40
+          size: 100
         }
       }
     }
@@ -514,7 +514,7 @@ node {
             size: 2
           }
         }
-        tensor_content: "(\000\000\000\036\000\000\000"
+        tensor_content: "d\000\000\000P\000\000\000"
       }
     }
   }
@@ -634,10 +634,10 @@ node {
     value {
       shape {
         dim {
-          size: 40
+          size: 100
         }
         dim {
-          size: 30
+          size: 80
         }
       }
     }
@@ -719,7 +719,7 @@ node {
             size: 1
           }
         }
-        int_val: 30
+        int_val: 80
       }
     }
   }
@@ -839,7 +839,7 @@ node {
     value {
       shape {
         dim {
-          size: 30
+          size: 80
         }
       }
     }
@@ -968,7 +968,7 @@ node {
             size: 2
           }
         }
-        tensor_content: "\036\000\000\000\n\000\000\000"
+        tensor_content: "P\000\000\0002\000\000\000"
       }
     }
   }
@@ -1088,10 +1088,10 @@ node {
     value {
       shape {
         dim {
-          size: 30
+          size: 80
         }
         dim {
-          size: 10
+          size: 50
         }
       }
     }
@@ -1173,7 +1173,7 @@ node {
             size: 1
           }
         }
-        int_val: 10
+        int_val: 50
       }
     }
   }
@@ -1293,7 +1293,7 @@ node {
     value {
       shape {
         dim {
-          size: 10
+          size: 50
         }
       }
     }
@@ -1422,7 +1422,7 @@ node {
             size: 2
           }
         }
-        tensor_content: "\n\000\000\000\002\000\000\000"
+        tensor_content: "2\000\000\000\002\000\000\000"
       }
     }
   }
@@ -1542,7 +1542,7 @@ node {
     value {
       shape {
         dim {
-          size: 10
+          size: 50
         }
         dim {
           size: 2
@@ -6890,173 +6890,6 @@ node {
   input: "^save/Assign_5"
   input: "^save/Assign_6"
   input: "^save/Assign_7"
-}
-node {
-  name: "strided_slice/stack"
-  op: "Const"
-  attr {
-    key: "dtype"
-    value {
-      type: DT_INT32
-    }
-  }
-  attr {
-    key: "value"
-    value {
-      tensor {
-        dtype: DT_INT32
-        tensor_shape {
-          dim {
-            size: 1
-          }
-        }
-        int_val: 0
-      }
-    }
-  }
-}
-node {
-  name: "strided_slice/stack_1"
-  op: "Const"
-  attr {
-    key: "dtype"
-    value {
-      type: DT_INT32
-    }
-  }
-  attr {
-    key: "value"
-    value {
-      tensor {
-        dtype: DT_INT32
-        tensor_shape {
-          dim {
-            size: 1
-          }
-        }
-        int_val: 1
-      }
-    }
-  }
-}
-node {
-  name: "strided_slice/stack_2"
-  op: "Const"
-  attr {
-    key: "dtype"
-    value {
-      type: DT_INT32
-    }
-  }
-  attr {
-    key: "value"
-    value {
-      tensor {
-        dtype: DT_INT32
-        tensor_shape {
-          dim {
-            size: 1
-          }
-        }
-        int_val: 1
-      }
-    }
-  }
-}
-node {
-  name: "strided_slice"
-  op: "StridedSlice"
-  input: "output_layer"
-  input: "strided_slice/stack"
-  input: "strided_slice/stack_1"
-  input: "strided_slice/stack_2"
-  attr {
-    key: "Index"
-    value {
-      type: DT_INT32
-    }
-  }
-  attr {
-    key: "T"
-    value {
-      type: DT_FLOAT
-    }
-  }
-  attr {
-    key: "begin_mask"
-    value {
-      i: 0
-    }
-  }
-  attr {
-    key: "ellipsis_mask"
-    value {
-      i: 0
-    }
-  }
-  attr {
-    key: "end_mask"
-    value {
-      i: 0
-    }
-  }
-  attr {
-    key: "new_axis_mask"
-    value {
-      i: 0
-    }
-  }
-  attr {
-    key: "shrink_axis_mask"
-    value {
-      i: 1
-    }
-  }
-}
-node {
-  name: "ArgMax_2/dimension"
-  op: "Const"
-  attr {
-    key: "dtype"
-    value {
-      type: DT_INT32
-    }
-  }
-  attr {
-    key: "value"
-    value {
-      tensor {
-        dtype: DT_INT32
-        tensor_shape {
-        }
-        int_val: 0
-      }
-    }
-  }
-}
-node {
-  name: "ArgMax_2"
-  op: "ArgMax"
-  input: "strided_slice"
-  input: "ArgMax_2/dimension"
-  attr {
-    key: "T"
-    value {
-      type: DT_FLOAT
-    }
-  }
-  attr {
-    key: "Tidx"
-    value {
-      type: DT_INT32
-    }
-  }
-  attr {
-    key: "output_type"
-    value {
-      type: DT_INT64
-    }
-  }
 }
 versions {
   producer: 119

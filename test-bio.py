@@ -18,7 +18,7 @@ data_test = np.array([test], dtype=float)
 
 # parameters
 learning_rate = 0.2
-epochs = 10
+epochs = 20
 
 # data place holders
 input_data = tf.placeholder(tf.float32, [None, 11], name='input')
@@ -32,7 +32,7 @@ output_nn_0 = tf.nn.softmax(tf.add(tf.matmul(input_data, w), b))
 # l1 layer
 w1 = tf.Variable(tf.random_normal([11, 7], stddev=0.03), name='w1')
 b1 = tf.Variable(tf.random_normal([7]), name='b1')
-output_nn_1 = tf.nn.sigmoid(tf.add(tf.matmul(output_nn_0, w1), b1))
+output_nn_1 = tf.nn.softmax(tf.add(tf.matmul(output_nn_0, w1), b1))
 
 # l3 layer
 w2 = tf.Variable(tf.random_normal([7, 2], stddev=0.03), name='w2')
