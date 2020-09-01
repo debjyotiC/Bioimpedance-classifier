@@ -51,6 +51,10 @@ output_nn = tf.nn.softmax(tf.add(tf.matmul(output_nn_1, w2), b2))
 y_clipped = tf.clip_by_value(output_nn, 1e-10, 0.9999999)
 error = -tf.reduce_mean(tf.reduce_sum(output_nn * tf.log(y_clipped) + (1 - output_nn) * tf.log(1 - y_clipped), axis=1))
 
+# accuracy
+accuracy = tf.metrics.accuracy(tf.argmax(output_data, 1), tf.argmax(output_nn, 1))
+
+
 optimiser = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(error)
 
 init_op = tf.global_variables_initializer()
@@ -60,7 +64,7 @@ with tf.Session() as sess:
     for epoch in range(epochs):
         _, c = sess.run([optimiser, error], feed_dict={input_data: data_train, output_data: data_label})
         print("{}/{}========={:.5f}".format(epoch+1, epochs, c))
-    # print(sess.run(tf.argmax(output_nn, 1)[0], feed_dict={input_data: data_test}))
+    # print(sess.run([output_nn[0], tf.argmax(output_nn[0])], feed_dict={input_data: data_test}))
     print(sess.run(tf.gather(label_list, tf.argmax(output_nn, 1)), feed_dict={input_data: data_test}))
 
 

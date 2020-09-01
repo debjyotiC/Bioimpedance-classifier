@@ -14,7 +14,7 @@ data_thp_30 = [np.max(df_dataset['30_THP']), np.min(df_dataset['30_THP']), np.av
 data_thp_10 = [np.max(df_dataset['10_THP']), np.min(df_dataset['10_THP']), np.average(df_dataset['10_THP'])]
 
 data_train = np.array([data_thp_100, data_thp_10], dtype=float)
-data_label = np.array([0.0, 1.0], dtype=float)
+data_label = np.array([1.0, 2.0], dtype=float)
 data_test = np.array(data_thp_30, dtype=float)
 
 clf = svm.SVC()
