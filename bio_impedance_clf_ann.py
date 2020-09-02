@@ -2,24 +2,35 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
-import os
+from sklearn.metrics import confusion_matrix, precision_score, accuracy_score
 
-os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 df = pd.read_csv('data-sets/three-stat.csv').dropna()\
     .reset_index(drop=True)
 
 x = df.drop(columns=['S No.', 'Value', 'Label'])
 y = df['Label']
 
-x_train, x_test, y_train, y_test = train_test_split(x, y)
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=False, test_size=0.4)
 
 model = tf.keras.models.Sequential([
-    tf.keras.layers.Dense(1024, input_dim=3, activation='relu'),
+    tf.keras.layers.Dense(100, input_dim=3, activation='relu'),
+    tf.keras.layers.Dense(50, activation='relu'),
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
 
-model.compile(loss='binary_crossentropy', optimizer=tf.keras.optimizers.RMSprop(0.0001), metrics=['accuracy'])
-model_out = model.fit(x_train, y_train, epochs=500, validation_data=[x_test, y_test])
+model.compile(loss=tf.keras.losses.BinaryCrossentropy(),
+              optimizer=tf.keras.optimizers.Adam(learning_rate=0.1), metrics=['accuracy'])
+
+model_out = model.fit(x_train, y_train, epochs=50, validation_data=[x_test, y_test])
 
 print("Training accuracy: {}".format(np.mean(model_out.history['accuracy'])))
 print("Validation accuracy: {}".format(np.mean(model_out.history['val_accuracy'])))
+
+y_prediction = model.predict(x_test)
+rounded = [round(x[0]) for x in y_prediction]
+y_cap_prediction = np.array(rounded, dtype='int64')
+
+print(confusion_matrix(y_test, y_cap_prediction))
+
+print("ANN Precision score:{}" .format(precision_score(y_test, y_cap_prediction)))
+print("ANN Accuracy score:{}".format(accuracy_score(y_test, y_cap_prediction)))
