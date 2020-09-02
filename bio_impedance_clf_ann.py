@@ -6,8 +6,8 @@ from sklearn.metrics import confusion_matrix, precision_score, accuracy_score
 
 df = pd.read_csv('data-sets/three-stat.csv').dropna().reset_index(drop=True)
 
-x = df.drop(columns=['S No.', 'Value', 'Label'])
-y = df['Label']
+x = df.drop(columns=['S No.', 'Value', 'Label']).to_numpy()
+y = df['Label'].to_numpy()
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=False, test_size=0.4)
 
