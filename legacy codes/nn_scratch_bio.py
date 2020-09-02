@@ -7,8 +7,8 @@ import os
 
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
-df_train = pd.read_csv('data-sets/sensor_data_cancer_train.csv')
-df_test = pd.read_csv('data-sets/sensor_data_cancer_test.csv')
+df_train = pd.read_csv('../data-sets/sensor_data_cancer_train.csv')
+df_test = pd.read_csv('../data-sets/sensor_data_cancer_test.csv')
 
 # cancerous cell
 data_thp_100 = df_train['100%_THP']

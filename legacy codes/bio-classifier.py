@@ -6,7 +6,7 @@ import os
 
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
-df_train = pd.read_csv('data-sets/data-gen.csv')
+df_train = pd.read_csv('../data-sets/data-gen.csv')
 
 data_thp_100 = df_train['100_THP']
 data_thp_30 = df_train['30_THP']

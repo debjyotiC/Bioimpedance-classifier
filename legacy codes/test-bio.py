@@ -4,7 +4,7 @@ import tensorflow.compat.v1 as tf
 import matplotlib.pyplot as plt
 tf.disable_v2_behavior()
 
-df_train = pd.read_csv('data-sets/data-gen.csv')
+df_train = pd.read_csv('../data-sets/data-gen.csv')
 
 data_thp_100 = df_train['100_THP']
 data_thp_30 = df_train['30_THP']
