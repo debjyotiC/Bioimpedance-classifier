@@ -12,9 +12,9 @@ y = df['Label']
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=False, test_size=0.4)
 
-neigh = KNeighborsClassifier(n_neighbors=3)
-neigh.fit(x_train, y_train)
-clf_output = neigh.predict(x_test)
+clf = KNeighborsClassifier(n_neighbors=2)
+clf.fit(x_train, y_train)
+clf_output = clf.predict(x_test)
 
 print(confusion_matrix(y_test, clf_output))
 
