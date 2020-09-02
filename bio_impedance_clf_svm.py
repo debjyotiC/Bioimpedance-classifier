@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn import svm
 from sklearn.model_selection import train_test_split
+
 from sklearn.metrics import confusion_matrix, precision_score, accuracy_score
 
 df = pd.read_csv('data-sets/three-stat.csv').dropna()\
@@ -11,7 +12,7 @@ y = df['Label']
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=False, test_size=0.4)
 
-clf = svm.SVC()
+clf = svm.SVC(kernel='rbf')
 clf.fit(x_train, y_train)
 clf_output = clf.predict(x_test)
 
