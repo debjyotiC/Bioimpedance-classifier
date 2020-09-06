@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 
-x_test = [499206.5769, 4992.065769, 25895.72974]
+x_test = [502692.0591, 5026.920591, 26076.53486]
 
 load_model = tf.keras.models.load_model('saved_model/tf_model')
 
