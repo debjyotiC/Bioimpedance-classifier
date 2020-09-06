@@ -15,8 +15,8 @@ data_air = df_train['Air']
 data_water = df_train['Water']
 
 # First let's load meta graph and restore weights
-saver = tf.train.import_meta_graph('../model_save_2/model.meta')
-saver.restore(sess, tf.train.latest_checkpoint('../model_save_2'))
+saver = tf.train.import_meta_graph('model_save_2/model.meta')
+saver.restore(sess, tf.train.latest_checkpoint('model_save_2'))
 
 # Now, let's access and create placeholders variables and
 # create feed-dict to feed new data
