@@ -15,14 +15,14 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=False, te
 model = tf.keras.models.Sequential([
     tf.keras.layers.Lambda(lambda seq: seq / (10 ** 5)),
     tf.keras.layers.Dense(200, input_dim=100, activation='softmax'),
-    tf.keras.layers.Dense(170, activation='softmax'),
+    tf.keras.layers.Dense(170, activation='relu'),
     tf.keras.layers.Dense(150, activation='relu'),
     tf.keras.layers.Dense(90, activation='relu'),
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
 
 model.compile(loss=tf.keras.losses.BinaryCrossentropy(),
-              optimizer=tf.keras.optimizers.Adam(learning_rate=0.01), metrics=['accuracy'])
+              optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), metrics=['accuracy'])
 
 
 model_out = model.fit(x_train, y_train, epochs=200, validation_data=[x_test, y_test])
