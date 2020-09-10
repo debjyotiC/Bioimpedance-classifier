@@ -12,6 +12,7 @@ y = df['Label'].to_numpy(dtype='float64')
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=False, test_size=0.4)
 
+
 model = tf.keras.models.Sequential([
     tf.keras.layers.Lambda(lambda seq: seq / (10 ** 5)),
     tf.keras.layers.Dense(200, input_dim=100, activation='softmax'),
@@ -24,8 +25,7 @@ model = tf.keras.models.Sequential([
 model.compile(loss=tf.keras.losses.BinaryCrossentropy(),
               optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), metrics=['accuracy'])
 
-
-model_out = model.fit(x_train, y_train, epochs=200, validation_data=[x_test, y_test])
+model_out = model.fit(x_train, y_train, epochs=170, validation_data=[x_test, y_test])
 
 # model.save('saved_model/tf_model')
 
@@ -46,7 +46,7 @@ epoch_count = range(1, len(model_out.history['loss']) + 1)
 # save performance data
 values = {'Epoch': epoch_count, 'Loss': model_out.history['loss'], 'Accuracy': model_out.history['accuracy']}
 df_w = pd.DataFrame(values, columns=['Epoch', 'Loss', 'Accuracy'])
-df_w.to_csv("data-sets/results.csv", index=None, header=True)
+df_w.to_csv("data-sets/results-2.csv", index=None, header=True)
 
 fig, axs = plt.subplots(2, 1)
 # plot loss
