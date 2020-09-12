@@ -9,7 +9,7 @@ from time import sleep  # for delay
 
 portAddr = '/dev/ttyS0'  # Arduino communication port
 baudRate = 9600  # Arduino comm. baud
-impedance = []  # empty list to store impedance data
+
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
@@ -37,6 +37,7 @@ gf_arr = [0.1565, 1.1504, 1.8395, 2.3795, 2.6402, 2.6264, 2.6654, 2.73407, 2.748
 
 
 def serialRead(port, baud):
+    impedance = []  # empty list to store impedance data
     ser = serial.Serial(port, baud, timeout=3.0)
     sleep(2)
     ser.write('C'.encode())
@@ -47,16 +48,11 @@ def serialRead(port, baud):
         GPIO.output(15, True)
     GPIO.output(15, False)
     ser.close()
+    return impedance
 
 
-def writetoCSV(val):
-    df_w = pd.DataFrame(val, columns=["datagot"])
-    df_w.to_csv("sensor_data_cancer_test.csv", index=False)
-
-
-def learnIt():
-    df_test = pd.read_csv('/data-sets/test_data.csv')
-    x_test = np.array(df_test, dtype='float32')
+def learnIt(data):
+    x_test = np.array(data, dtype='float32')
     # Load TFLite model and allocate tensors.
     interpreter = tf.lite.Interpreter(model_path="saved_model/tflite_model/converted_model.tflite")
     interpreter.allocate_tensors()
@@ -104,10 +100,8 @@ def action():
     while True:
         if GPIO.input(18) == GPIO.HIGH:
             sleep(0.2)
-            serialRead(portAddr, baudRate)
-            writetoCSV(impedance)
             sleep(1)
-            learnIt()
+            learnIt(serialRead(portAddr, baudRate))
         if GPIO.input(16) == GPIO.HIGH:
             flagit = True
             if flagit and itr == 5:
