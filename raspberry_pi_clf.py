@@ -3,6 +3,7 @@ import tensorflow as tf
 import numpy as np
 import serial  # to handle serial data to Arduino
 import RPi.GPIO as GPIO
+import pandas as pd
 import os
 from time import sleep  # for delay
 
@@ -48,8 +49,14 @@ def serialRead(port, baud):
     ser.close()
 
 
-def learnIt(test_samples):
-    x_test = np.array(test_samples, dtype='float32')
+def writetoCSV(val):
+    df_w = pd.DataFrame(val, columns=["datagot"])
+    df_w.to_csv("sensor_data_cancer_test.csv", index=False)
+
+
+def learnIt():
+    df_test = pd.read_csv('/data-sets/test_data.csv')
+    x_test = np.array(df_test, dtype='float32')
     # Load TFLite model and allocate tensors.
     interpreter = tf.lite.Interpreter(model_path="saved_model/tflite_model/converted_model.tflite")
     interpreter.allocate_tensors()
@@ -98,8 +105,9 @@ def action():
         if GPIO.input(18) == GPIO.HIGH:
             sleep(0.2)
             serialRead(portAddr, baudRate)
+            writetoCSV(impedance)
             sleep(1)
-            learnIt(impedance)
+            learnIt()
         if GPIO.input(16) == GPIO.HIGH:
             flagit = True
             if flagit and itr == 5:
