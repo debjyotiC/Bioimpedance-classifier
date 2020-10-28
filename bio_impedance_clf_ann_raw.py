@@ -27,7 +27,7 @@ model.compile(loss=tf.keras.losses.BinaryCrossentropy(),
 
 model_out = model.fit(x_train, y_train, epochs=170, validation_data=[x_test, y_test])
 
-# model.save('saved_model/tf_model')
+model.save('saved_model/tf_model_2')
 
 print("Training accuracy: {:.5f}".format(np.mean(model_out.history['accuracy'])))
 print("Validation accuracy: {:.5f}".format(np.mean(model_out.history['val_accuracy'])))
