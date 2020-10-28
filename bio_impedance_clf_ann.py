@@ -14,9 +14,9 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=False, te
 
 model = tf.keras.models.Sequential([
     tf.keras.layers.Lambda(lambda seq: seq / (10 ** 5)),
-    tf.keras.layers.Dense(100, input_dim=3, activation='softmax'),
-    tf.keras.layers.Dense(50, activation='softmax'),
-    tf.keras.layers.Dense(20, activation='relu'),
+    tf.keras.layers.Dense(200, input_dim=3, activation='softmax'),
+    tf.keras.layers.Dense(100, activation='softmax'),
+    tf.keras.layers.Dense(70, activation='relu'),
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
 
